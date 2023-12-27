@@ -1,0 +1,13 @@
+we use the connectDB() in the index.js after that we use
+.then and .catch 
+beacuse we use the async in the db configration file it returns promise 
+
+
+
+for the file upload we use third party npm package multer 
+
+
+in new node we dont need to use body parser beacuse we can use builtin express.json()
+
+and for the url encodeation we use express.urlencoded({extended:true})
+extended for the object in object nested object 
