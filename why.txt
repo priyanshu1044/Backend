@@ -11,3 +11,11 @@ in new node we dont need to use body parser beacuse we can use builtin express.j
 
 and for the url encodeation we use express.urlencoded({extended:true})
 extended for the object in object nested object 
+
+
+middlewares : jane se pehle mujse milke jana 
+
+
+for fileupload
+
+multer or express-fileupload 
