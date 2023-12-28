@@ -19,3 +19,13 @@ middlewares : jane se pehle mujse milke jana
 for fileupload
 
 multer or express-fileupload 
+
+
+http methods
+
+Get : retrive a resourse
+post : interact with a resourse (mostly to create )
+put: update whole object a resourse
+patch : update a part of object resourse
+delete: delete a resourse
+trace : debugging 
