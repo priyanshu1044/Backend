@@ -1,0 +1,245 @@
+How many user is active?
+    => match if user is active that gives all the list of iaActive:true,
+        next step count all the activeUser  ---->> we get total active user
+    [
+    {
+        $match: {
+            isActive:true
+        }
+    },
+    {
+        $count: 'activeUser'
+    }
+    ]
+
+
+what is the avarage age of the all user?
+
+    [
+    {
+        $group: {
+            _id: null, // this means group by nothing s
+            avgAge: {
+                $avg: '$age'
+            }
+        }
+    }
+    ]
+
+list the top 5 most comman favorite fruits among users 
+
+[
+  {
+    $group: {
+    	_id:"$favoriteFruit",
+      countEachFruit:{
+        // $count:{}
+        $sum: 1
+      }
+    }
+  },
+  {
+    $sort: {
+      countEachFruit:-1
+    }
+  },
+  {
+    $limit: 5
+  }
+]
+
+
+find the total num of male and fenale
+
+[{
+  $group: {
+    _id: "$gender",
+    countIndividualBasedOnGender:{
+      $sum:1
+    }
+  }
+}]
+
+
+which country has the most number of registered user?
+    
+[{
+  $group: {
+    _id: "$company.location.country",
+  	countUser:{
+      $sum:1
+    }
+  }
+},{
+  $sort: {
+    countUser: -1
+  }
+},
+ {
+   $limit: 1
+ }
+ ]
+
+
+
+list all unique eye color present in the collection
+
+[{
+  $group: {
+    _id: "$eyeColor",
+  }
+}]
+
+
+
+what is the avg number of tags per user
+
+//we need to use unwind to open up the array
+whenever we want to work with the array we have to open up the array that when unwind is come to the picture 
+lets say we have 3 size of array it create 3 document with the same id 
+
+[
+  {
+    $unwind: {
+      path:"$tags",
+    }
+  },{
+    $group: {
+      _id: "$_id",
+      numberOfTags:{
+        $sum:1
+      }
+    }
+  },
+  {
+    $group: {
+      _id: null,
+      avgNumOfTag: {
+        $avg: "$numberOfTags"
+      }
+    }
+  }
+]
+
+//another way to do it using addField
+
+[
+  {
+    $addFields: {
+      numberOfTags: {
+        $size: {$ifNull:["$tags",[]]}
+      }
+    }
+  },
+  {
+    $group: {
+      _id: null,
+      avgNumOfTag: {
+        $avg: "$numberOfTags"
+      }
+    }
+  }
+]
+
+
+//how many user have 'enim' as one of their tag
+
+[
+  {
+    $match: {
+      tags: "enim"
+    }
+  },
+  {
+    $count: "userWithEnim"
+  }
+]
+
+
+
+$project
+//passes along the documents with the requested fields to the next stage in the pipeline 
+what are the names and age of users who are inactive and have 'velit' as a tag
+
+[
+  {
+    $match: {
+      isActive: false,
+      tags: "velit"
+    }
+  },
+  {
+    $project: {
+      name: 1,
+      age: 1
+    }
+  }
+]
+
+
+how many users have a phone number starting with +1 (940)
+    
+[
+  {
+    $match: {
+      "company.phone": /^\+1 \(940\)/,
+    },
+  },
+  {
+    $count: 'userWithSpePhone'
+  },
+]
+
+
+who has registered the most recently?
+
+[
+  {
+    $sort: {
+      registered: -1
+    }
+  },
+  {
+    $limit: 1
+  }
+]
+
+
+//$push
+the push operator appends a specified value to an array
+
+
+[
+  {
+    $group: {
+      _id: "$favoriteFruit",
+      userThatHasIndividualFavFruit:{
+        $push:"$name"
+      }
+    }
+  }
+]
+
+//how many users have 'ad' as the secound tag in their list of tags
+[
+  {
+  	$match: {
+  		"tags.1":"ad"
+  	}
+  },{
+    $count: 'userWithAdAs2ndTag'
+  }
+  
+]
+
+//find user who have both 'enim' and 'id' as their tags
+    
+    [
+    {
+        $match: {
+        tags: {
+            $all: ["enim", "id"]
+        }
+        }
+    }
+    ]

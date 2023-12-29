@@ -1,0 +1,52 @@
+$match
+
+// for matching more than one conditoin 
+$match: {
+      isActive: false,
+      tags: "velit"
+    }
+
+$count: 'activeUser'
+$avg: '$age'
+
+$group
+
+$sort
+
+$limit
+
+$sum:1 // increment by one 
+
+
+//destriucturing 
+$company.location.country
+
+
+
+what is the avg number of tags per user
+
+//we need to use unwind to open up the array
+whenever we want to work with the array we have to open up the array that when unwind is come to the picture 
+lets say we have 3 size of array it create 3 document with the same id 
+
+$unwind
+
+
+//for adding fields
+$addFields: {
+      numberOfTags: {
+        $size: {$ifNull:["$tags",[]]}
+      }
+    }
+
+
+
+
+// for projecting the specific fields that you want to see
+$project
+
+
+//$push
+the push operator appends a specified value to an array
+
+
