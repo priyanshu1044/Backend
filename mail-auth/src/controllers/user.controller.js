@@ -20,7 +20,7 @@ export  const sendOTPVerificationEmail = async (email) => {
             port: 587,
             secure: true, // true for 465, false for other ports
             auth: {
-              user: 'otpgen10@gmail.com',
+              user: `${process.env.EMAIL}`,
               pass: `${process.env.EMAIL_PASSWORD}`,
             },
           });
@@ -29,7 +29,7 @@ export  const sendOTPVerificationEmail = async (email) => {
   
       // Email options
       const mailOptions = {
-        from: 'otpgen10@gmail.com',
+        from: `${process.env.EMAIL}`,
         to: email,
         subject: 'OTP Verification',
         text: `Your OTP for verification is: ${otp}`,
