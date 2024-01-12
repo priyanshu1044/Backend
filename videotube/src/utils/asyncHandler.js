@@ -10,7 +10,6 @@ export default asyncHandler;
 // const asyncHandler = (fn) => { async ()=>{}}
 
 
-
 // const asyncHandler = (fn) => async (req, res, next) =>{
 
 //     try {
