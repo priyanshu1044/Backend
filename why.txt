@@ -30,3 +30,8 @@ patch : update a part of object resourse
 delete: delete a resourse
 trace : debugging 
 
+
+cors
+Lets any domain use our api
+
+we can also do this without cors by sending the html file on same port 
